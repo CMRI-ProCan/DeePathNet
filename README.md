@@ -8,7 +8,7 @@ Description
 ![Figure1](./figures/Figure1.png)
 
 Transformer-based deep learning integrates multi-omic data with cancer pathways.
-Cai, et al 2022
+Cai, et al., 2022
 
 
 
