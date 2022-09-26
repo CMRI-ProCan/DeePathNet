@@ -1,0 +1,12 @@
+{
+  "data_file": "/home/scai/DeePathNet/data/processed/omics/ccle_df_intersection3_drug.csv.gz",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
+  "model": "svm-linear",
+  "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
+  "num_repeat": 5,
+  "cv": 5,
+  "seed": 1,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/ec_svml/mutation_cnv_rna",
+  "data_type": ["mutation","cnv","rna"],
+  "task": "regression"
+}

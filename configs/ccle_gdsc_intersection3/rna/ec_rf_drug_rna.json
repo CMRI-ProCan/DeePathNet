@@ -1,0 +1,17 @@
+{
+  "data_file": "/home/scai/DeePathNet/data/processed/omics/ccle_df_intersection3_drug.csv.gz",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
+  "model": "rf",
+  "train_cells": "/home/scai/DeePathNet/data/meta/ccle_gdsc_intersection3_train.txt",
+  "test_cells": "/home/scai/DeePathNet/data/meta/ccle_gdsc_intersection3_test.txt",
+  "cv": 5,
+  "params_grid": {
+    "criterion": ["mse"],
+    "n_estimators": [400, 600, 800],
+    "max_features": ["sqrt"],
+    "n_jobs": [4]
+  },
+  "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/ec_rf/rna",
+  "data_type": ["rna"],
+  "task": "regression"
+}

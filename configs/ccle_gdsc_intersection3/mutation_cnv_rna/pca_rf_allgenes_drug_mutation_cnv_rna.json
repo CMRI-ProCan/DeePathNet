@@ -1,0 +1,11 @@
+{
+  "data_file": "/home/scai/DeePathNet/data/DR/pca/ccle_mutation_cnv_rna_gdsc_allgenes.csv",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
+  "model": "rf",
+  "num_repeat": 5,
+  "cv": 5,
+  "seed": 1,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/pca_rf/mutation_cnv_rna",
+  "data_type": ["DR"],
+  "task": "regression"
+}

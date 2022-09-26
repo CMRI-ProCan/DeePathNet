@@ -1,0 +1,15 @@
+{
+  "data_file_train": "/home/scai/DeePathNet/data/processed/omics/tcga_brca_as_validation.csv",
+  "target_file_train": "/home/scai/DeePathNet/data/processed/cancer_type/tcga_brca_mutation_cnv_rna_subtypes.csv",
+  "data_file_test": "/home/scai/DeePathNet/data/processed/omics/cptac_as_validation.csv",
+  "target_file_test": "/home/scai/DeePathNet/data/processed/cancer_type/cptac_brca_cnv_rna_subtypes_independent.csv",
+  "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
+  "model": "rf",
+  "seed": 1,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/tcga_train_cptac_test_brca/ec_rf/cnv_rna",
+  "data_type": [
+    "cnv",
+    "rna"
+  ],
+  "task": "multiclass"
+}

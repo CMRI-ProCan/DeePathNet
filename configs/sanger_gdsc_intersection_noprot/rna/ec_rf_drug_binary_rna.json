@@ -1,0 +1,19 @@
+{
+  "data_file": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide_binary.csv.gz",
+  "model": "rf",
+  "train_cells": "/home/scai/DeePathNet/data/meta/sanger_gdsc_intersection_noprot_train.txt",
+  "test_cells": "/home/scai/DeePathNet/data/meta/sanger_gdsc_intersection_noprot_test.txt",
+  "cv": 5,
+  "params_grid": {
+    "n_estimators": [400, 600, 800],
+    "max_features": ["sqrt"],
+    "n_jobs": [4]
+  },
+  "min_cancer_publication": 2000,
+  "max_gene_num": 100,
+  "min_gene_num": 0,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_gdsc_intersection_noprot/ec_rf/rna",
+  "data_type": ["rna"],
+  "task": "classification"
+}

@@ -1,0 +1,11 @@
+{
+  "data_file": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide.csv.gz",
+  "model": "en",
+  "num_repeat": 5,
+  "cv": 5,
+  "seed": 1,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_gdsc_intersection_noprot/ec_en/mutation_cnv_rna",
+  "data_type": ["mutation","cnv","rna"],
+  "task": "regression"
+}

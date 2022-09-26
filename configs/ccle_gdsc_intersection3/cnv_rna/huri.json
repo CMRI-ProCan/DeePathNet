@@ -1,0 +1,14 @@
+{
+  "data_root": "/home/scai/DeePathNet/data/graphs/tu_dataset/ccle_gdsc_intersection3",
+  "data_name": "HuRI_CNV_RNA",
+  "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/doi/cnv_rna",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
+  "model": "GCN",
+  "batch_size": 16,
+  "hidden_channels": 4,
+  "lr": 2e-5,
+  "warmup_steps": 10,
+  "num_epochs": 400,
+  "shap_model": "",
+  "suffix": "HuRI"
+}
