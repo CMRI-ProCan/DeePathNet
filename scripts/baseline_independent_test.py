@@ -1,19 +1,22 @@
-import pandas as pd
-import numpy as np
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, roc_auc_score, make_scorer, \
-    accuracy_score
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.model_selection import KFold
-from sklearn.svm import SVR, SVC
-from sklearn.neural_network import MLPRegressor, MLPClassifier
-from sklearn.linear_model import ElasticNet
-import logging
-import sys
+"""
+Script to run the baseline model for the early concatenation methods on the independent test set for drug response prediction.
+E.g. python scripts/baseline_independent_test.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/ec_rf_all_genes_mutation_cnv_rna_prot.json
+"""
 import json
+import logging
 import os
+import sys
 from datetime import datetime
-from tqdm import tqdm, trange
+
+import numpy as np
+import pandas as pd
 from scipy.stats import pearsonr
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, roc_auc_score, accuracy_score
+from sklearn.neural_network import MLPRegressor, MLPClassifier
+from sklearn.svm import SVR, SVC
+from tqdm import trange
 
 STAMP = datetime.today().strftime('%Y%m%d%H%M')
 OUTPUT_NA_NUM = -100
