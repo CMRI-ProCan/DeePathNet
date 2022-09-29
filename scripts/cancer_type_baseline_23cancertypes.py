@@ -1,22 +1,19 @@
-import pandas as pd
+"""
+Script to run baseline models for cancer type classification using cross validation
+E.g. python cancer_type_baseline_23cancertypes.py
+"""
 import numpy as np
-
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression, RidgeClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-from xgboost import XGBClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score, plot_confusion_matrix, f1_score, roc_auc_score, \
-    precision_score
-from sklearn.metrics import classification_report, confusion_matrix
-from lightgbm import LGBMClassifier
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from sklearn.model_selection import KFold
-
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 from tqdm import tqdm
+from xgboost import XGBClassifier
 
 NUM_REPATE = 5
 num_fold = 5

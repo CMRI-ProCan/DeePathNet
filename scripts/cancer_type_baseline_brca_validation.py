@@ -1,28 +1,17 @@
+"""
+Script to run baseline models for breast cancer subtype classification using independent test set
+E.g. python cancer_type_baseline_brca_validation.py
+"""
 import pandas as pd
-import numpy as np
-
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression, RidgeClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from xgboost import XGBClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score, plot_confusion_matrix, f1_score, roc_auc_score, \
-    precision_score
-from sklearn.metrics import classification_report, confusion_matrix
-from lightgbm import LGBMClassifier
-from sklearn.model_selection import KFold
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-from tqdm import tqdm
 
 NUM_REPATE = 5
 num_fold = 5
 
 seed = 1
-
 
 def run_model(input_df_train, input_df_test, clf_name, data_type=('cnv', 'rna')):
     count = 0

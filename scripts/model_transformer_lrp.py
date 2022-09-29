@@ -304,7 +304,7 @@ class PathwayDrop(nn.Module):
         return x
 
 
-class DOIT_LRP(nn.Module):
+class DeePathNet(nn.Module):
 
     def __init__(self, num_omics, out_dim, gene_to_id, id_to_gene, pathway_dict, non_cancer_genes, embed_dim=2048,
                  depth=2,

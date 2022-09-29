@@ -4,7 +4,7 @@
   "data_file_test": "/home/scai/DeePathNet/data/processed/omics/ccle_unique_as_test_mutation_cnv_rna_prot.csv",
   "target_file_test": "/home/scai/DeePathNet/data/processed/drug/ccle_unique_as_test_mutation_cnv_rna_prot.csv",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "do_cv": true,
   "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_train_ccle_test_gdsc/DeePathNet/mutation_cnv_rna_prot",
   "data_type": ["mutation", "cnv", "rna", "prot"],
@@ -29,6 +29,6 @@
   "save_checkpoints": false,
   "save_scores": true,
   "drop_last": true,
-  "suffix": "_DOIT_LRP",
+  "suffix": "_DeePathNet",
   "saved_model": ""
 }

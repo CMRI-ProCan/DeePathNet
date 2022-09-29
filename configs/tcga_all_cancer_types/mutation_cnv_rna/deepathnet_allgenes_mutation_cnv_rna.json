@@ -2,7 +2,7 @@
   "data_file": "/home/scai/DeePathNet/data/processed/omics/tcga_23_cancer_types_mutation_cnv_rna_union.csv",
   "target_file": "/home/scai/DeePathNet/data/processed/cancer_type/tcga_23_cancer_types_mutation_cnv_rna.csv",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "do_cv": true,
   "work_dir": "/home/scai/DeePathNet/work_dirs/tcga_all_cancer_types/DeepMultiOmicNet/mutation_cnv_rna",
   "data_type": ["mutation", "cnv", "rna"],

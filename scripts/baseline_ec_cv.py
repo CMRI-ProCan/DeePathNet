@@ -1,27 +1,28 @@
-import warnings
+"""
+Script to run the baseline model for the early concatenation methods using cross-validation for drug response prediction.
+E.g. python scripts/baseline_ec_cv.py configs/sanger_gdsc_intersection_noprot/mutation_cnv_rna/ec_rf_allgenes_drug_mutation_cnv_rna.json
+"""
 
-import pandas as pd
-import numpy as np
-import pickle
-from functools import reduce
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, roc_auc_score, make_scorer, \
-    accuracy_score
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.model_selection import KFold
-from sklearn.svm import SVR, SVC
-from sklearn.model_selection import GridSearchCV
-from sklearn.neural_network import MLPRegressor, MLPClassifier
-from sklearn.linear_model import ElasticNet
-import logging
-import sys
 import json
+import logging
 import os
+import sys
+import warnings
 from datetime import datetime
-from tqdm import tqdm, trange
-from scipy.stats import pearsonr
-from xgboost import XGBClassifier, XGBRegressor
 from time import time
+
+import numpy as np
+import pandas as pd
+from scipy.stats import pearsonr
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.linear_model import ElasticNet
 from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, roc_auc_score, accuracy_score
+from sklearn.model_selection import KFold
+from sklearn.neural_network import MLPRegressor, MLPClassifier
+from sklearn.svm import SVR, SVC
+from tqdm import trange
+from xgboost import XGBClassifier, XGBRegressor
 
 warnings.filterwarnings(action='ignore', category=UserWarning)
 

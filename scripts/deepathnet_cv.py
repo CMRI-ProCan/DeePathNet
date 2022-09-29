@@ -1,21 +1,18 @@
-import pandas as pd
-import torch.optim
-from sklearn.model_selection import KFold
-import logging
-import sys
+"""
+Script to run DeePathNet with cross validation for any task.
+E.g. python scripts/deepathnet_cv.py configs/tcga_all_cancer_types/mutation_cnv_rna/deepathnet_allgenes_mutation_cnv_rna.json
+"""
 import json
-import os
+import sys
 from datetime import datetime
 
-from tqdm import tqdm
-
-from optimizer.radam import RAdam
-from optimizer.adamw import AdamW
+import torch.optim
+from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
-from utils.training_prepare import prepare_data_cv
 
+from model_transformer_lrp import DeePathNet
 from models import *
-from model_transformer_lrp import DOIT_LRP
+from utils.training_prepare import prepare_data_cv
 
 STAMP = datetime.today().strftime('%Y%m%d%H%M')
 
@@ -62,29 +59,14 @@ def get_setup(genes_to_id, id_to_genes, target_dim):
         logger.info(f"Cancer genes:{len(cancer_genes)}\tNon-cancer genes:{len(non_cancer_genes)}")
         return pathway_dict, non_cancer_genes
 
-    if configs['model'] == 'DeepMultiOmicNetV3':
-        model = DeepMultiOmicNetV3(len(genes), len(omics_types), target_dim,
-                                   configs['hidden_width'], configs['hidden_size'], group=configs['group'])
-    elif configs['model'] == 'DeepMultiOmicNetV3S':
-        model = DeepMultiOmicNetV3S(len(genes), len(omics_types), target_dim,
-                                    configs['hidden_width'], configs['hidden_size'])
-    elif configs['model'] == 'DeepMultiOmicPathwayNet':
-        pathway_dict, non_cancer_genes = load_pathway()
-        model = DeepMultiOmicPathwayNet(configs['hidden_width'], len(omics_types), target_dim, genes_to_id,
-                                        id_to_genes,
-                                        pathway_dict, non_cancer_genes, equal_width=configs['equal_width'],
-                                        only_cancer_genes=configs['cancer_only'])
-    elif configs['model'] == 'DOIT_LRP':
-        pathway_dict, non_cancer_genes = load_pathway()
-        model = DOIT_LRP(len(omics_types), target_dim, genes_to_id,
-                         id_to_genes,
-                         pathway_dict, non_cancer_genes, embed_dim=configs['dim'], depth=configs['depth'],
-                         mlp_ratio=configs['mlp_ratio'], out_mlp_ratio=configs['out_mlp_ratio'],
-                         num_heads=configs['heads'], pathway_drop_rate=configs['pathway_dropout'],
-                         only_cancer_genes=configs['cancer_only'], tissues=tissues)
-        logger.info(open("/home/scai/DeePathNet/scripts/model_transformer_lrp.py", 'r').read())
-    else:
-        raise Exception
+    pathway_dict, non_cancer_genes = load_pathway()
+    model = DeePathNet(len(omics_types), target_dim, genes_to_id,
+                        id_to_genes,
+                        pathway_dict, non_cancer_genes, embed_dim=configs['dim'], depth=configs['depth'],
+                        mlp_ratio=configs['mlp_ratio'], out_mlp_ratio=configs['out_mlp_ratio'],
+                        num_heads=configs['heads'], pathway_drop_rate=configs['pathway_dropout'],
+                        only_cancer_genes=configs['cancer_only'], tissues=tissues)
+    logger.info(open("/home/scai/DeePathNet/scripts/model_transformer_lrp.py", 'r').read())
 
     logger.info(model)
     model = model.to(device)

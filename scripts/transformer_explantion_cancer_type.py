@@ -1,22 +1,18 @@
+"""
+Script to run pathway-level model explanation for cancer type
+E.g. python scripts/transformer_explantion_cancer_type.py configs/tcga_brca_subtypes/mutation_cnv_rna/deepathnet_allgenes_mutation_cnv_rna.json
+"""
 import json
-
-from datetime import datetime
-import sys
-import logging
 import os
 import sys
 
-import pandas as pd
 from sklearn.model_selection import KFold
 
 sys.path.append(os.getcwd() + '/..')
 from models import *
-from model_transformer_lrp import DOIT_LRP, LRP
+from model_transformer_lrp import DeePathNet, LRP
 from torch.utils.data import DataLoader
-from tqdm import tqdm, trange
-
-import shap
-import time
+from tqdm import trange
 
 seed = 12345
 torch.manual_seed(seed)
@@ -111,7 +107,7 @@ def run_lrp_cancer_type(merged_df_train):
 
     cancer_genes = set([y for x in pathway_df['genes'].values for y in x.split("|")])
     non_cancer_genes = sorted(set(genes) - set(cancer_genes))
-    model = DOIT_LRP(len(omics_types), len(class_name_to_id), train_dataset.genes_to_id,
+    model = DeePathNet(len(omics_types), len(class_name_to_id), train_dataset.genes_to_id,
                      train_dataset.id_to_genes,
                      pathway_dict, non_cancer_genes, embed_dim=configs['dim'], depth=configs['depth'],
                      num_heads=configs['heads'],

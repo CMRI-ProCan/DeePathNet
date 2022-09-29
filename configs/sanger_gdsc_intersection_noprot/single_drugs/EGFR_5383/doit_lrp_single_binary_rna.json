@@ -2,7 +2,7 @@
   "data_file": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
   "target_file": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide_binary.csv.gz",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM_ccle_df_intersection3_drug.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "train_cells": "/home/scai/DeePathNet/data/meta/sanger_gdsc_intersection_noprot_train.txt",
   "test_cells": "/home/scai/DeePathNet/data/meta/sanger_gdsc_intersection_noprot_test.txt",
   "do_cv": false,
@@ -30,6 +30,6 @@
   "save_scores": false,
   "drop_last": true,
   "drug_id": "2016;EGFR_5383;GDSC2",
-  "suffix": "_DOIT_LRP_BINARY_2016_EGFR_5383_GDSC2",
-  "saved_model": "202104211809_DOIT_LRP_BINARY_2016_EGFR_5383_GDSC2.pth"
+  "suffix": "_DeePathNet_BINARY_2016_EGFR_5383_GDSC2",
+  "saved_model": "202104211809_DeePathNet_BINARY_2016_EGFR_5383_GDSC2.pth"
 }

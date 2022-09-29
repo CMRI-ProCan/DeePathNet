@@ -2,7 +2,7 @@
   "data_file": "/home/scai/DeePathNet/data/processed/omics/ccle_df_intersection3_drug.csv.gz",
   "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "do_cv": true,
   "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/DeepMultiOmicNet/mutation_rna",
   "data_type": ["mutation", "rna"],
@@ -27,6 +27,6 @@
   "save_checkpoints": false,
   "save_scores": true,
   "drop_last": true,
-  "suffix": "_DOIT_LRP",
+  "suffix": "_DeePathNet",
   "saved_model": ""
 }

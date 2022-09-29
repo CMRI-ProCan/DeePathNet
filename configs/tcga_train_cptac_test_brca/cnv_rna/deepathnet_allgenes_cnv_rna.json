@@ -4,7 +4,7 @@
   "data_file_test": "/home/scai/DeePathNet/data/processed/omics/cptac_as_validation.csv",
   "target_file_test": "/home/scai/DeePathNet/data/processed/cancer_type/cptac_brca_cnv_rna_subtypes_independent.csv",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "do_cv": true,
   "work_dir": "/home/scai/DeePathNet/work_dirs/tcga_train_cptac_test_brca/DeePathNet/cnv_rna",
   "data_type": ["cnv", "rna"],

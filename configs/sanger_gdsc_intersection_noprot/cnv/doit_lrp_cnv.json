@@ -2,7 +2,7 @@
   "data_file": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
   "target_file": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide.csv.gz",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
-  "model": "DOIT_LRP",
+  "model": "DeePathNet",
   "do_cv": true,
   "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_gdsc_intersection_noprot/DeepMultiOmicNet/cnv",
   "data_type": ["cnv"],
@@ -27,6 +27,6 @@
   "save_checkpoints": false,
   "save_scores": true,
   "drop_last": true,
-  "suffix": "_DOIT_LRP",
+  "suffix": "_DeePathNet",
   "saved_model": ""
 }
