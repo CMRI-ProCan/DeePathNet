@@ -37,7 +37,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 def get_setup(genes_to_id, id_to_genes, target_dim):
-    def load_pathway():
+    def load_pathway(random_control=False):
         pathway_dict = {}
         pathway_df = pd.read_csv(configs['pathway_file'])
         if 'min_cancer_publication' in configs:
@@ -59,9 +59,15 @@ def get_setup(genes_to_id, id_to_genes, target_dim):
         cancer_genes = set([y for x in pathway_df['genes'].values for y in x.split("|")])
         non_cancer_genes = set(genes) - set(cancer_genes)
         logger.info(f"Cancer genes:{len(cancer_genes)}\tNon-cancer genes:{len(non_cancer_genes)}")
+        if random_control:
+            logger.info("Randomly select genes for each pathway")
+            for key in pathway_dict:
+                pathway_dict[key] = np.random.choice(list(set(cancer_genes)),
+                                                     len(pathway_dict[key]), replace=False)
         return pathway_dict, non_cancer_genes
 
-    pathway_dict, non_cancer_genes = load_pathway()
+    random_control = False if "random_control" not in configs else configs["random_control"]
+    pathway_dict, non_cancer_genes = load_pathway(random_control=random_control)
     model = DeePathNet(len(omics_types), target_dim, genes_to_id,
                         id_to_genes,
                         pathway_dict, non_cancer_genes, embed_dim=configs['dim'], depth=configs['depth'],

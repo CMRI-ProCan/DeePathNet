@@ -4,8 +4,8 @@
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
   "model": "DeePathNet",
   "do_cv": true,
-  "work_dir": "/home/scai/DeePathNet/work_dirs/tcga_brca_subtypes/DeepMultiOmicNet/rna",
-  "data_type": ["rna"],
+  "work_dir": "/home/scai/DeePathNet/work_dirs/tcga_brca_subtypes/DeePathNet/mutation_cnv_rna",
+  "data_type": ["mutation", "cnv", "rna"],
   "task": "multiclass",
   "seed": 1,
   "num_repeat": 5,
@@ -24,9 +24,9 @@
   "weight_decay": 1e-5,
   "cancer_only": true,
   "lr": 1e-5,
-  "save_checkpoints": false,
-  "save_scores": true,
+  "save_checkpoints": true,
+  "save_scores": false,
   "drop_last": true,
   "suffix": "_DeePathNet",
-  "saved_model": ""
+  "saved_model": "202202081127_Cancer_type.pth"
 }

@@ -1,11 +1,11 @@
 {
-  "data_file": "/home/scai/DeePathNet/data/processed/omics/ccle_df_intersection3_drug.csv.gz",
-  "target_file": "/home/scai/DeePathNet/data/processed/drug/ccle_gdsc_intersection3_wide.csv.gz",
+  "data_file": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
+  "target_file": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide.csv.gz",
   "pathway_file": "/home/scai/DeePathNet/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
   "model": "DeePathNet",
   "do_cv": true,
-  "work_dir": "/home/scai/DeePathNet/work_dirs/ccle_gdsc_intersection3/DeepMultiOmicNet/cnv_rna",
-  "data_type": ["cnv", "rna"],
+  "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_gdsc_intersection_noprot/DeePathNet/mutation_cnv_rna",
+  "data_type": ["mutation", "cnv", "rna"],
   "task": "regression",
   "seed": 1,
   "num_repeat": 5,
@@ -22,11 +22,12 @@
   "emb_dropout": 0,
   "pathway_dropout": 0.5,
   "weight_decay": 1e-5,
-  "cancer_only": true,
-  "lr": 3e-5,
+  "cancer_only": false,
+  "lr": 1e-5,
   "save_checkpoints": false,
   "save_scores": true,
   "drop_last": true,
-  "suffix": "_DeePathNet",
-  "saved_model": ""
+  "suffix": "_all_genes_random_control",
+  "saved_model": "",
+  "random_control": true
 }

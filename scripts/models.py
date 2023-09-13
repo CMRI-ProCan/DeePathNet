@@ -6,7 +6,6 @@ import torch
 from torch.utils.data import Dataset
 import torch.nn as nn
 import numpy as np
-from model_transformer import *
 
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, accuracy_score, roc_auc_score, f1_score
 
