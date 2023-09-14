@@ -10,8 +10,12 @@ Description
 Transformer-based deep learning integrates multi-omic data with cancer pathways.
 Cai, et al., 2022
 
-
-
+## Drug response prediction: 
+```python scripts/deepathnet_independent_test.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot_random_control.json```
+## TCGA cancer type classification
+```python scripts/deepathnet_cv.py configs/tcga_all_cancer_types/mutation_cnv_rna/deepathnet_mutation_cnv_rna.json```
+## Breast cancer subtype classification
+```python scripts/deepathnet_independent_test.py configs/tcga_train_cptac_test_brca/cnv_rna/deepathnet_cnv_rna.json```
 
 Contact
 --
