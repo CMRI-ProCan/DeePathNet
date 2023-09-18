@@ -10,6 +10,9 @@ Description
 Transformer-based deep learning integrates multi-omic data with cancer pathways.
 Cai, et al., 2022
 
+# Usage
+To run the examples below, please also download the relevant files from https://doi.org/10.6084/m9.figshare.24137619![image](https://github.com/CMRI-ProCan/DeePathNet/assets/21287206/bc907f0e-76cf-413d-8148-91e3147ec3b8)
+
 ## Drug response prediction: 
 ```python scripts/deepathnet_independent_test.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot_random_control.json```
 ## TCGA cancer type classification
