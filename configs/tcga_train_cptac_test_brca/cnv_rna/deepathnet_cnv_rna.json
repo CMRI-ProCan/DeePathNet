@@ -10,7 +10,7 @@
   "data_type": ["cnv", "rna"],
   "task": "multiclass",
   "seed": 1,
-  "num_repeat": 5,
+  "num_repeat": 1,
   "batch_size": 100,
   "num_workers": 1,
   "log_freq": 20,

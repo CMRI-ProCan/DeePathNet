@@ -10,7 +10,7 @@
   "data_type": ["mutation", "cnv", "rna"],
   "task": "regression",
   "seed": 1,
-  "num_repeat": 5,
+  "num_repeat": 10,
   "batch_size": 100,
   "num_workers": 1,
   "log_freq": 20,

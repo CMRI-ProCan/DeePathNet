@@ -6,11 +6,10 @@ import json
 import sys
 from datetime import datetime
 
+import numpy as np
 import torch.optim
 from torch.utils.data import DataLoader
 
-from model_transformer_lrp import DeePathNet
-from models import *
 from utils.training_prepare import prepare_data_independent_test
 
 from models import *
@@ -28,15 +27,16 @@ if 'suffix' in configs:
 
 seed = configs['seed']
 torch.manual_seed(seed)
+np.random.seed(seed)
 
 BATCH_SIZE = configs['batch_size']
 NUM_WORKERS = 0
 LOG_FREQ = configs['log_freq']
 NUM_EPOCHS = configs['num_of_epochs']
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+RANDOM_CONTROL = False if 'random_control' not in configs else configs['random_control']
 
-
-def get_setup(genes_to_id, id_to_genes, target_dim):
+def get_setup(genes_to_id, id_to_genes, target_dim, cv=0):
     def load_pathway(random_control=False):
         pathway_dict = {}
         pathway_df = pd.read_csv(configs['pathway_file'])
@@ -62,12 +62,16 @@ def get_setup(genes_to_id, id_to_genes, target_dim):
         if random_control:
             logger.info("Randomly select genes for each pathway")
             for key in pathway_dict:
-                pathway_dict[key] = np.random.choice(list(set(cancer_genes)),
-                                                     len(pathway_dict[key]), replace=False)
+                pathway_dict[key] = list(np.random.choice(list(set(cancer_genes)),
+                                                          len(pathway_dict[key]), replace=False))
         return pathway_dict, non_cancer_genes
 
-    random_control = False if "random_control" not in configs else configs["random_control"]
-    pathway_dict, non_cancer_genes = load_pathway(random_control=random_control)
+    pathway_dict, non_cancer_genes = load_pathway(random_control=RANDOM_CONTROL)
+    if RANDOM_CONTROL:
+        logger.info("Saving random control genes")
+        with open(f"{configs['work_dir']}/random_genes_cv{cv}_{STAMP}{log_suffix}.json", "w") as f:
+            json.dump(pathway_dict, f)
+
     model = DeePathNet(len(omics_types), target_dim, genes_to_id,
                         id_to_genes,
                         pathway_dict, non_cancer_genes, embed_dim=configs['dim'], depth=configs['depth'],
@@ -90,7 +94,7 @@ def get_setup(genes_to_id, id_to_genes, target_dim):
     return model, criterion, optimizer, lr_scheduler
 
 
-def run_experiment(merged_df_train, merged_df_test, val_score_dict, run='test', class_name_to_id=None):
+def run_experiment(merged_df_train, merged_df_test, val_score_dict, run='test', class_name_to_id=None, cv=0):
     train_df = merged_df_train.iloc[:, :num_of_features]
     test_df = merged_df_test.iloc[:, :num_of_features]
     train_target = merged_df_train.iloc[:, num_of_features:]
@@ -126,7 +130,7 @@ def run_experiment(merged_df_train, merged_df_test, val_score_dict, run='test', 
     else:
         target_dim = train_target.shape[1]
     model, criterion, optimizer, lr_scheduler = get_setup(train_dataset.genes_to_id, train_dataset.id_to_genes,
-                                                          target_dim)
+                                                          target_dim, cv=cv)
 
     val_drug_ids = merged_df_test.columns[num_of_features:]
     val_res = train_loop(NUM_EPOCHS, train_loader, test_loader, model, criterion, optimizer, logger, STAMP,
@@ -158,14 +162,22 @@ if configs['task'] == 'multiclass':
 
 count = 0
 num_repeat = 1 if 'num_repeat' not in configs else configs['num_repeat']
+for n in range(num_repeat):
+    all_val_df = []
+    merged_df_train = pd.merge(data_input_train, data_target_train, on=["Cell_line"])
+    merged_df_test = pd.merge(data_input_test, data_target_test, on=["Cell_line"])
 
-all_val_df = []
-merged_df_train = pd.merge(data_input_train, data_target_train, on=['Cell_line'])
-merged_df_test = pd.merge(data_input_test, data_target_test, on=['Cell_line'])
+    val_res = run_experiment(
+        merged_df_train,
+        merged_df_test,
+        val_score_dict,
+        run=f"cv_{count}",
+        class_name_to_id=class_name_to_id,
+        cv=count
+    )
+    all_val_df.append(val_res)
+    count += 1
 
-val_res = run_experiment(merged_df_train, merged_df_test, val_score_dict, run=f"cv_{count}",
-                                 class_name_to_id=class_name_to_id)
-all_val_df.append(val_res)
 if 'save_scores' not in configs or configs['save_scores']:
     val_score_df = pd.DataFrame(val_score_dict)
     val_score_df.to_csv(f"{configs['work_dir']}/scores_{STAMP}{log_suffix}.csv.gz", index=False)
