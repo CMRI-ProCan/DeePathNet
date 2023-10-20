@@ -8,16 +8,32 @@ Description
 ![Figure1](./figures/Figure1.png)
 
 Transformer-based deep learning integrates multi-omic data with cancer pathways.
-Cai, et al., 2022
+Cai, et al., 2023
+
+# Pre-requisite
+
+1. Follow https://docs.anaconda.com/free/anaconda/install/index.html to set up the Python environment with Anaconda
+2. Follow https://pytorch.org/ to install PyTorch
+
+# Raising issues
+Please kindly note that issues may occur due to various differences in computational environments. We recommend using 
+the same versions of Python and PyTorch as we used in our study, described in the Methods sections of the manuscript. 
+If you have any issue running the tool, please raise a ticket using the Issue tab and we will respond and help as soon as possible.
 
 # Usage
+
 To run the examples below, please also download the relevant files from https://doi.org/10.6084/m9.figshare.24137619
 
-## Drug response prediction: 
+## Drug response prediction:
+
 ```python scripts/deepathnet_independent_test.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot_random_control.json```
+
 ## TCGA cancer type classification
+
 ```python scripts/deepathnet_cv.py configs/tcga_all_cancer_types/mutation_cnv_rna/deepathnet_mutation_cnv_rna.json```
+
 ## Breast cancer subtype classification
+
 ```python scripts/deepathnet_independent_test.py configs/tcga_train_cptac_test_brca/cnv_rna/deepathnet_cnv_rna.json```
 
 Contact
