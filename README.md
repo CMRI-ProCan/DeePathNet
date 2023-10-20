@@ -38,7 +38,7 @@ To run the examples below, please:
 Please kindly note that issues may occur due to various differences in computational environments. We recommend using 
 the same versions of Python and PyTorch as we used in our study, described in the Methods sections of the manuscript. 
 If you have any issue running the tool, please raise a ticket using the Issue tab and we will respond and help as soon as possible.
-We endeavour to improve DeePathNet as much as we can.
+We endeavour to provide support and improve DeePathNet as much as we can.
 
 Contact
 --
