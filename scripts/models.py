@@ -588,7 +588,11 @@ def validate_cls_multiclass(val_loader, model, run=None, epoch=None, val_score_d
     if np.unique(targets).size > 2:
         top3_acc = np.sum(np.any(predicts[:, :3] == np.expand_dims(targets, axis=1), axis=1)) / targets.shape[0]
         f1 = f1_score(targets, predicts[:, 0], average='macro')
-        roc_auc = roc_auc_score(targets, confs, multi_class='ovo')
+        unique_train, unique_test = np.unique(predicts), np.unique(targets)
+        if set(unique_train) == set(unique_test):
+            roc_auc = roc_auc_score(targets, confs, multi_class='ovo')
+        else:
+            roc_auc = np.nan
     else:
         top3_acc = 1
         f1 = f1_score(targets, predicts[:, 0])

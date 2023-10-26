@@ -8,7 +8,7 @@
   "data_type": ["mutation", "cnv", "rna"],
   "task": "multiclass",
   "seed": 1,
-  "num_repeat": 5,
+  "num_repeat": 2,
   "batch_size": 100,
   "num_workers": 1,
   "log_freq": 20,
@@ -27,7 +27,8 @@
   "save_checkpoints": false,
   "save_scores": true,
   "drop_last": true,
-  "suffix": "_23_types_cancer_genes_random_control",
+  "downsample": 2000,
+  "suffix": "_23_types_cancer_genes_random_control_ds_2k",
   "random_control": true,
   "saved_model": ""
 }

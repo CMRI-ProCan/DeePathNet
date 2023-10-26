@@ -12,10 +12,12 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.neural_network import MLPClassifier
 from tqdm import tqdm
 from xgboost import XGBClassifier
+import os
 
-NUM_REPATE = 5
+NUM_REPEAT = 2
 num_fold = 5
 
 seed = 1
@@ -31,7 +33,7 @@ def run_model(input_df, clf_name, data_type=('mutation', 'cnv', 'rna')):
         ]]
     num_of_features = input_df.shape[1]
     cell_lines_all = input_df.index.values
-    for n in range(NUM_REPATE):
+    for n in range(NUM_REPEAT):
         cv = KFold(n_splits=num_fold, shuffle=True, random_state=(seed + n))
 
         for cell_lines_train_index, cell_lines_val_index in tqdm(
@@ -53,16 +55,12 @@ def run_model(input_df, clf_name, data_type=('mutation', 'cnv', 'rna')):
                 clf = XGBClassifier()
             elif clf_name == "LR":
                 clf = LogisticRegression(n_jobs=40, solver='saga')
-            elif clf_name == "ridge":
-                clf = RidgeClassifier()
             elif clf_name == "KNN":
                 clf = KNeighborsClassifier()
-            elif clf_name == 'SVML':
-                clf = SVC(probability=True, kernel='linear')
-            elif clf_name == 'SVM':
-                clf = SVC(probability=True, kernel='linear')
             elif clf_name == 'NB':
                 clf = GaussianNB()
+            elif clf_name == 'MLP':
+                clf = MLPClassifier(verbose=True)
             elif clf_name == 'DT':
                 clf = DecisionTreeClassifier()
             else:
@@ -128,16 +126,20 @@ input_df_cancergenes = input_df[
 
 input_df_cancergenes = input_df_cancergenes.fillna(0)
 input_df = input_df.fillna(0)
-num_fold = 5
 
-NUM_REPATE = 5
+dir_path = "../results/tcga_all_cancer_types/"
 
-seed = 1
+if not os.path.exists(dir_path):
+    os.makedirs(dir_path)
 
 #%% All Cancer types
-print("Running LR")
-lr_results_df = run_model(input_df, "LR")
-lr_results_df.to_csv("../results/tcga_all_cancer_types/lr_results_allgenes.csv",
+# print("Running LR")
+# lr_results_df = run_model(input_df, "LR")
+# lr_results_df.to_csv("../results/tcga_all_cancer_types/lr_results_allgenes.csv",
+#                      index=False)
+print("Running MLP")
+mlp_results_df = run_model(input_df_cancergenes, "MLP")
+mlp_results_df.to_csv("../results/tcga_all_cancer_types/mlp_results.csv",
                      index=False)
 # print("Running RF")
 # rf_results_df = run_model(input_df, "RF")

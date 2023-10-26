@@ -1,11 +1,10 @@
 import json
 import logging
-from datetime import datetime
-
 import os
-import pandas as pd
-import numpy as np
 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 def prepare_data(config_file, STAMP):
     configs = json.load(open(config_file, 'r'))
@@ -117,6 +116,14 @@ def prepare_data_cv(config_file, STAMP):
     if data_type[0] != 'DR':
         data_input = data_input[
             [x for x in data_input.columns if (x.split("_")[1] in data_type) or (x.split("_")[0] in data_type)]]
+
+    if "downsample" in configs:
+        _, test_idx = train_test_split(data_input.index, test_size=configs["downsample"], 
+                                               random_state=42, stratify=data_target)
+        data_input = data_input.loc[test_idx]
+        data_target = data_target.loc[test_idx]
+        # data_input = data_input.sample(n=configs["downsample"], random_state=42)
+        # data_target = data_target.loc[data_input.index]
 
     tissues = [x for x in data_input.columns if 'tissue' in x] if 'tissue' in data_type else None
     omics_types = [x for x in data_type if x != 'tissue']

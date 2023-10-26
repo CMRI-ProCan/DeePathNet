@@ -48,14 +48,14 @@ if configs['task'].lower() == 'classification':
                   'svm': SVC(),
                   'en': ElasticNet(),
                   'svm-linear': SVC(kernel='linear'),
-                  'mlp': MLPClassifier()}
+                  'mlp': MLPClassifier(verbose=True)}
 
 else:
     model_dict = {'rf': RandomForestRegressor(n_jobs=100),
                   'svm': SVR(),
                   'en': ElasticNet(),
                   'svm-linear': SVR(kernel='linear'),
-                  'mlp': MLPRegressor()}
+                  'mlp': MLPRegressor(verbose=True)}
 
 data_target_train = pd.read_csv(configs['target_file_train'], index_col=0)
 data_input_train = pd.read_csv(configs['data_file_train'], index_col=0)

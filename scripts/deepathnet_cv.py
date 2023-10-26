@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 
 import torch.optim
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, StratifiedKFold
 from torch.utils.data import DataLoader
 
 from model_transformer_lrp import DeePathNet
@@ -262,8 +262,13 @@ if configs["save_checkpoints"]:
     all_val_df.append(val_res)
 else:
     for n in range(num_repeat):
-        cv = KFold(n_splits=5, shuffle=True, random_state=(seed + n))
-        for cell_lines_train_index, cell_lines_val_index in cv.split(cell_lines_all):
+        if configs["task"] == "multiclass":
+            cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=(seed + n))
+            folds = cv.split(cell_lines_all, data_target_all.iloc[:, 0])
+        else:
+            cv = KFold(n_splits=5, shuffle=True, random_state=(seed + n))
+            folds = cv.split(cell_lines_all)
+        for cell_lines_train_index, cell_lines_val_index in folds:
             train_lines = np.array(cell_lines_all)[cell_lines_train_index]
             val_lines = np.array(cell_lines_all)[cell_lines_val_index]
 
@@ -276,6 +281,11 @@ else:
             val_data = data_input_all[data_input_all.index.isin(val_lines)]
 
             merged_df_val = pd.merge(val_data, data_target_all, on=["Cell_line"])
+
+            unique_train, unique_test = merged_df_train.iloc[:,-1].unique(), merged_df_val.iloc[:,-1].unique()
+            if set(unique_train) != set(unique_test):
+                logger.info("Missing class in validation fold")
+                continue
 
             val_res = run_experiment(
                 merged_df_train,

@@ -1,0 +1,16 @@
+{
+  "data_file_train": "/home/scai/DeePathNet/data/processed/omics/sanger_df_intersection_noprot_drug.csv.gz",
+  "target_file_train": "/home/scai/DeePathNet/data/processed/drug/sanger_gdsc_intersection_noprot_wide.csv.gz",
+  "data_file_test": "/home/scai/DeePathNet/data/processed/omics/ccle_unique_as_test.csv",
+  "target_file_test": "/home/scai/DeePathNet/data/processed/drug/ccle_unique_as_test.csv",
+  "pathway_file": "/home/scai/DeepOmicIntegrate/data/graph_predefined/LCPathways/41568_2020_240_MOESM4_ESM.csv",
+  "model": "mlp",
+  "seed": 1,
+  "work_dir": "/home/scai/DeePathNet/work_dirs/sanger_train_ccle_test_gdsc/ec_mlp/mutation_cnv_rna",
+  "data_type": [
+    "mutation",
+    "cnv",
+    "rna"
+  ],
+  "task": "regression"
+}
