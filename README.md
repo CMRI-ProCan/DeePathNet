@@ -22,6 +22,20 @@ To run the examples below, please:
 1. Download the relevant files from https://doi.org/10.6084/m9.figshare.24137619
 2. Update the file paths specified in each config file according to the downloaded location in step 1. The file path is currently set with an absolute path, starting with `/home/scai/DeePathNet/`, which should be replaced by the actual file locations.
 
+## Data input
+The input files are specified in the config files, such as ```configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot_random_control.json```.
+The input data file should have the *samples as rows* and *features as columns*. Each feature should contain an `_`, which separates the gene name and the omic data type. The data type needs to match the config files. Below is a mocked example of the data input.
+| Sample     | GeneA_RNA | GeneA_PROT | GeneB_RNA | GeneB_PROT |
+|------------|-----------|------------|-----------|------------|
+| Cell_lineA | 10        | 8          | 2         | 3          |
+| Cell_lineB | 15        | 12         | 1         | 2          |
+| Cell_lineC | 5         | 3          | 10        | 8          |
+
+Real data files can be found at the figshare repo https://doi.org/10.6084/m9.figshare.24137619 
+
+## Data output
+The output of DeePathNet contains the predictions for drug response (IC50) or cancer types/subtypes.
+
 ## Drug response prediction:
 
 ```python scripts/deepathnet_independent_test.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot_random_control.json```
