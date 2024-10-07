@@ -48,6 +48,25 @@ The output of DeePathNet contains the predictions for drug response (IC50) or ca
 
 ```python scripts/deepathnet_independent_test.py configs/tcga_train_cptac_test_brca/cnv_rna/deepathnet_cnv_rna.json```
 
+## Running moCluster and mixOmics for comparison
+
+Scripts for running moCluster and mixOmics are also provided for comparison with DeePathNet. They can be found in the `R` directory.
+
+Then, run the following command to compare the results of DeePathNet with moCluster after the dimensionality reduction:
+```python scripts/baseline_ec_cv.py configs/sanger_gdsc_intersection_noprot/mutation_cnv_rna/moCluster_rf_allgenes_drug_mutation_cnv_rna.json```
+``` python scripts/cancer_type_baseline_23cancertypes.py```
+
+## Running feature importance analysis
+To calculate pathway-level feature importance, run the following command:
+```python scripts/transformer_explantion_cancer_type.py configs/tcga_brca_subtypes/mutation_cnv_rna/deepathnet_allgenes_mutation_cnv_rna.json```
+To calculate gene-level feature importance, run the following command:
+```python scripts/transformer_shap_cancer_type.py configs/tcga_brca_subtypes/mutation_cnv_rna/deepathnet_allgenes_mutation_cnv_rna.json```
+
+### Calculating feature importance for other tasks (not analysed in the study)
+To calculate feature importance for other tasks, such as drug response prediction, please update the config file accordingly. For example:
+```python scripts/transformer_explantion_drug_response.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna.json```
+```python scripts/transformer_shap_drug_response.py configs/sanger_train_ccle_test_gdsc/mutation_cnv_rna_prot/deepathnet_mutation_cnv_rna_prot.json```
+
 ## Raising issues
 Please kindly note that issues may occur due to various differences in computational environments. We recommend using 
 the same versions of Python and PyTorch as we used in our study, described in the Methods sections of the manuscript. 
